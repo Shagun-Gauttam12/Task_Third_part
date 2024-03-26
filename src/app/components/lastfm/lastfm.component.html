@@ -1,0 +1,68 @@
+<div class="container" style="margin-top: 3rem;">
+    <h1>Search Last.fm</h1>
+    <form class="d-flex" #myform="ngForm" (ngSubmit)="OnSubmit(myform)">
+        <input type="search" class="form-control me-2" placeholder="Search" name="search_artist" [(ngModel)] = "search_artist">
+        <button type="submit"
+            class="btn btn-primary" >search</button>
+    </form>
+</div>
+
+
+<div class="container" style="margin-top: 3rem;">
+    <h2>Search Results :</h2>
+</div>
+<hr>
+
+
+
+<div class="container" style="margin-top: 3rem;">
+    <button class="btn btn-outline-secondary float-end" (click)="OnShowShortList()">
+        Show short-list
+        </button>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Artist Name</th>
+                <th scope="col"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+           
+            <tr *ngFor="let n of numSequence(15); 
+            let i = index;">
+                <!-- <th scope="row">{{i+1}}</th> -->
+                <th scope="row">
+                    <img src="{{images_url[i]}}">
+                </th>
+                <td>{{artists[i]}}</td>
+                <td>
+                    <a (click)="moveToShortItem(artists[i])">
+                        <svg  class="bi pointer-events: none  " xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="26" height="26"
+                            viewBox="0 0 48 48">
+                            <style>
+                                svg { cursor: pointer; }
+                            </style>
+                            <path fill="#4caf50"
+                                d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path>
+                            <path fill="#fff" d="M21,14h6v20h-6V14z"></path>
+                            <path fill="#fff" d="M14,21h20v6H14V21z"></path>
+                        </svg>
+                    </a>
+
+                </td>
+
+            </tr>
+            
+        </tbody>
+    </table>
+    @if(this.short_list_page === true){
+        <app-short-list *ngIf="short_item_array.length" [short_artist]="short_item_array" (valueChange)="OnClose($event)" ></app-short-list>
+    }
+</div>
+
+ 
+    
+    <!-- @for (artist of artists; track artist; let  i = $index){} -->
